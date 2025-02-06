@@ -42,5 +42,28 @@ if (resp == "1")
 }
 else if (resp == "2")
 {
-    // TODO: parse data file
+    if (File.Exists("data.txt"))
+    {
+        string[] lines = File.ReadAllLines("data.txt");
+        foreach (var line in lines)
+        {
+            //grabs info from data.txt and makes it usable
+            string[] parts = line.Split(',');
+            string date = parts[0];
+            string hoursData = parts[1];
+            string[] hours = hoursData.Split('|');
+
+            DateTime sDate = DateTime.ParseExact(date, "M/d/yyyy", null);
+
+            Console.WriteLine($"Week of {sDate:MMM}, {sDate:dd}, {sDate:yyyy}");
+            Console.WriteLine(" Su Mo Tu We Th Fr Sa");
+            Console.WriteLine(" -- -- -- -- -- -- --");
+
+            foreach (var hour in hours)
+            {
+                Console.Write($" {hour,2}");
+            }
+            Console.WriteLine();
+        }
+    }
 }
